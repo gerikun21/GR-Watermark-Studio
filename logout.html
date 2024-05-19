@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Warna latar belakang hitam */
+            color: #fff; /* Warna teks putih */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 800px; /* Efek 3D menggunakan perspektif */
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #333; /* Warna latar belakang yang lebih gelap */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Bayangan lebih gelap */
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d; /* Memastikan anak-anaknya terpengaruh oleh transformasi 3D */
+            animation: spin 10s infinite linear; /* Animasi berputar */
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 36px; /* Ukuran font yang lebih besar */
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 24px; /* Ukuran font yang lebih besar */
+            margin-bottom: 30px;
+        }
+        .kiss {
+            font-size: 48px; /* Ukuran font yang lebih besar */
+            margin-top: 20px;
+            animation: kissAnimation 1s infinite alternate, rain 2s infinite linear;
+        }
+        .ghosts {
+            font-size: 60px; /* Ukuran emoji */
+        }
+        .ghosts span {
+            opacity: 0.7;
+            transition: opacity 0.5s ease;
+        }
+        .ghosts span:hover {
+            opacity: 1;
+        }
+        @keyframes kissAnimation {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+        @keyframes rain {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(100%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(200%);
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logout</h1>
+        <p class="message">Thank you guys udah pake apk kita ya</p>
+        <span class="kiss">&#128536;</span>
+        <div class="ghosts">
+            <span>&#129497;</span>
+            <span>&#128123;</span>
+            <span>&#129326;</span>
+            <span>&#128121;</span>
+        </div>
+    </div>
+</body>
+</html>
