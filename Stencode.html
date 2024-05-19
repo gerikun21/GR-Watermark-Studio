@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encode Watermark with Steganography</title>
+</head>
+<body>
+    <h1>Encode Watermark with Steganography</h1>
+    <input type="file" id="imageInput" accept="image/*"><br><br>
+    <input type="text" id="hiddenMessage" placeholder="Enter watermark message"><br><br>
+    <input type="password" id="encryptionKey" placeholder="Enter encryption key"><br><br>
+    <button onclick="encryptAndHide()">Encrypt and Hide Watermark</button><br><br>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <img id="outputImage"><br><br>
+    <a id="downloadLink" style="display:none;">Download Watermarked Image</a>
+
+    <script>
+        function encryptAndHide() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const imageInput = document.getElementById('imageInput');
+            const hiddenMessage = document.getElementById('hiddenMessage').value;
+            const encryptionKey = document.getElementById('encryptionKey').value;
+
+            const encryptedMessage = hiddenMessage.split('').map((char, index) => 
+                String.fromCharCode(char.charCodeAt(0) ^ encryptionKey[index % encryptionKey.length].charCodeAt(0))
+            ).join('');
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = new Image();
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    const data = imageData.data;
+
+                    for (let i = 0; i < encryptedMessage.length; i++) {
+                        data[i * 4] = encryptedMessage.charCodeAt(i);
+                    }
+
+                    ctx.putImageData(imageData, 0, 0);
+                    const dataURL = canvas.toDataURL('image/png');
+                    document.getElementById('outputImage').src = dataURL;
+
+                    const downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = dataURL;
+                    downloadLink.download = 'watermarked_image.png';
+                    downloadLink.style.display = 'block';
+                    downloadLink.innerText = 'Download Watermarked Image';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    </script>
+</body>
+</html>

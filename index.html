@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to GR Watermark Studio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 800px; /* Efek 3D menggunakan perspektif */
+        }
+        .container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d; /* Memastikan anak-anaknya terpengaruh oleh transformasi 3D */
+            animation: spin 10s infinite linear; /* Animasi berputar */
+        }
+        .option {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d; /* Penting untuk memastikan efek 3D */
+            cursor: pointer; /* Mengubah kursor saat diarahkan ke opsi */
+        }
+        .option:nth-child(1) {
+            transform: rotateY(0deg) translateZ(150px); /* Menempatkan pilihan secara seimbang */
+        }
+        .option:nth-child(2) {
+            transform: rotateY(90deg) translateZ(150px);
+        }
+        .option:nth-child(3) {
+            transform: rotateY(180deg) translateZ(150px);
+        }
+        .option:nth-child(4) {
+            transform: rotateY(270deg) translateZ(150px);
+        }
+        @keyframes spin {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+        .welcome-message {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="option" onclick="redirectTo('stencode.html')">Encode</div>
+        <div class="option" onclick="redirectTo('stdecode.html')">Decode</div>
+        <div class="option" onclick="redirectTo('about.html')">About Me</div>
+        <div class="option" onclick="redirectTo('logout.html')">Logout</div>
+    </div>
+
+    <p class="welcome-message" id="welcome-message"></p>
+
+    <script>
+        // Mendapatkan nama dari URL query string
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const username = urlParams.get('username');
+
+        // Menampilkan pesan welcome dengan nama pengguna (jika ada)
+        const welcomeMessage = document.getElementById('welcome-message');
+        if (username) {
+            welcomeMessage.innerText = "Welcome to the GR Watermark Studio, " + username + " bro...";
+        } else {
+            welcomeMessage.innerText = "Welcome to the GR Watermark Studio, bro...";
+        }
+        
+        // Fungsi untuk mengarahkan ke halaman yang sesuai
+        function redirectTo(page) {
+            window.location.href = page + "?username=" + (username ? username : '');
+        }
+    </script>
+</body>
+</html>
